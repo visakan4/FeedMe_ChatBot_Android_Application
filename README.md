@@ -10,7 +10,7 @@ application mainly aims to assist the users in finding the best restaurant under
 
 ## Architecture
 
-
+![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/Architecture.JPG "SiteMap")
 
 ## Dataset
 
