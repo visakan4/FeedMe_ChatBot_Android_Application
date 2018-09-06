@@ -10,11 +10,13 @@ application mainly aims to assist the users in finding the best restaurant under
 
 ## Architecture
 
-![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/Architecture.JPG "SiteMap")
+![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/Architecture.JPG "Architecture")
 
 ## Dataset
 
+**Link**: https://www.yelp.com/dataset
 
+![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/images/datasetSchema.png "Architecture")
 
 ## Data preprocessing
 
