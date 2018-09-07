@@ -11,6 +11,7 @@ application mainly aims to assist the users in finding the best restaurant under
 ## Technology
 
 **Language**: Java, Python, MySQL
+
 **Tools/Frameworks**: Android Studio, pandas, numpy, scikit-learn, flask, RESTful API, IBM DB2
 
 ## Architecture
