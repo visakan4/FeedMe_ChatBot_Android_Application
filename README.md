@@ -8,6 +8,11 @@ Feed Me is an Android application that recommends restaurants to users by learni
 YELP dataset. YELP is an open source dataset containing large number of reviews about the restaurants, the
 application mainly aims to assist the users in finding the best restaurant under different categories such as ambienece, discount and deals based on the authentic user reviews through voice commands. We have implemented Sentimental Analysis and Topic modelling to predict the star rating of each restaurants. FeedMe app uses built-in speech recoginition API from Google SDK to attain speech to text capabilities. 
 
+## Technology
+
+**Language**: Java, Python, MySQL
+**Tools/Frameworks**: Android Studio, pandas, numpy, scikit-learn, flask, RESTful API, IBM DB2
+
 ## Architecture
 
 ![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/Architecture.JPG "Architecture")
