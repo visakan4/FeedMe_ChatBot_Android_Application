@@ -12,6 +12,12 @@ application mainly aims to assist the users in finding the best restaurant under
 
 ![alt text](https://github.com/visakan4/FeedMe_ChatBot_Android_Application/blob/master/Architecture.JPG "Architecture")
 
+Android Application : https://github.com/visakan4/FeedMe_ChatBot_Android_Application
+
+Web Service: https://github.com/Nishanth32/FeedMeWebService
+
+Preprocessing scripts: https://github.com/visakan4/FeedMe_ChatBot_ML
+
 ## Dataset
 
 **Link**: https://www.yelp.com/dataset
@@ -38,16 +44,25 @@ We made use of IBM DB2 Warehouse and Python packages like pandas, geopy to perfo
 
 ## Sentimental Analysis
 
+Sentimental Analysis is a process of extracting the emotions expressed by a human via text unit. Emotions expressed by the author are most widely classified into three different categories namely positive, negative and neutral. In our project, we have applied sentimental analysis on restaurant reviews to identify the emotions of the users towards the restaurant. We rank and recommend restaurants based on the data generated via sentimental analysis of the reviews. 
+		
+We started off with a approach where we tried to find the sentiment of reviews based on the number of positive and negative words present in the review. We made use of the lexicon released as a part of the research paper titled “Generating Recommendation Dialogs by Extracting Information from User Reviews”. The lexicon contained a total of 1435 positive and 570 negative words related to restaurant domain. We observed that this approach did not yield appropriate results, we found that it was because we were taking into sentiments of words without considering the words surrounding them. 
+
+For example, a review like “The food was not that tasty.” would fetch a positive sentiment in this approach as tasty is the only positive word present in the review. As we were not considering the words around “tasty”, it gave us wrong results. In order to overcome the drawback of this approach, we considered taking into account two words at a time but that approach also did not yield very good results. So we decided to find the sentiment of each sentence present in the review. 
+
+We made use of “TextBlob” and “NLTK” to determine the sentiment of sentences. TextBlob and NLTK give us a score between -1 to 1, -1 would mean that it is a very negative sentiment and 1 would mean that is a positive sentiment. TextBlob names it as polarity score whereas NLTK names it as compound score. We find the sentiment of each sentence in the review and add the scores to find the overall sentiment score of the review. In order to normalize the sentiment scores, we divide the score by number of sentences in the review. We don’t take into account the sentences which give us a score of 0, which means it is subjective sentence and it has neutral sentiment. 
+
+Once we had calculated the sentiment score of each reviews, we group reviews for each restaurants and calculate the sentiment score for the restaurant. We add up the sentiment score of each review and normalize it by dividing the score by number of reviews present for each restaurant. Once we had calculated both NLTK score(compound) and TextBlob score(polarity) we convert it to a score between 1-5. We find the average of star values generated from NLTK and TextBlob. Average value would act as the star rating for the restaurant. We used the generated star rating as a measure to determine the quality of the restaurants.
 
 
 ## Topic modelling
 
+Based on sentimental analysis of the reviews, we were able to obtain a star rating for each restaurant in the dataset. Even though star rating will give a good idea about the restaurant to the user, we felt that it would be more useful if we can give some more information regarding the restaurant to the user. So we came up with an idea where we would give a star rating for four important aspects namely food, ambience, deals and discounts and service. We made use of LDA model to obtain details about the four categories from the reviews.
 
+Given a set of documents, Latent Dirichlet Allocation(LDA) helps in finding the topics which are related to the documents. We applied LDA model on the reviews to extract the topics related to the  reviews. We grouped the reviews by restaurants and we performed LDA for each restaurant reviews. Each review for a restaurant acted as a document and the list of reviews(documents) were the input to LDA. Before applying LDA, we had to process the reviews in order to get better outputs from the model. 
 
-## Screenshots
+As a first step, we tokenized the reviews into a list of words by using NLTK word tokenizer. We then removed punctuations and stopwords from the word tokenized list. As a next step, we performed lemmatization for each word and reduced the inflected words to their base words. Once all the cleansing had been done, we converted the data into a document term matrix using python “gensim” package. We then applied the LDA model on the document term matrix, we set the Number of Topics parameter to 10 and number of words per topic parameter to 5. By setting those parameter, we would get an output of 10 topics and each topic would contain 5 words. 
 
-
-
-## Installation
+LDA model now gave us a list of words which contributed to the topic of the reviews. We iterated through the list and removed the duplicate words from the list. We then made use of the list from a github repository[8] to create a bag of words for each category(food, ambience, deals and discounts and service). Now we had a set of words which contribute to the topic of the reviews and a bag of words for each category. We performed a intersection between set of words and the bag of words of each category. If intersected set was empty, we came to a conclusion that reviews did not speak about the category. If the set was not empty then we took the intersected list of words and found the sentiment score of the each sentences which contained the intersected word. We added up the sentiment score and divided it by the number of sentences in which it appeared to get a normalized sentiment score of the category. We then converted the score into a star rating ranging from 1-5. By using this approach we were able to assign a star rating for the four categories.
 
 
